@@ -20,7 +20,7 @@ const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
    const {openSignIn} =  useClerk();
-   const {user} = useClerk();
+   const {user} = useUser();
    const navigate = useNavigate();
    const location = useLocation();
 
