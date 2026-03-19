@@ -14,9 +14,20 @@ const HotelReg = () => {
    const [city, setCity] = React.useState("");
 
    const onSubmitHandler = async (event) => {
+      console.log("1️⃣ Form submit triggered");
+
       try {
          event.preventDefault();
-         const { data } = await axios.post("/api/hotel/register", { name, contact, address, city },{headers: { Authorization: `Bearer ${await getToken()}` }});
+         console.log("2️⃣ Sending request to backend");
+
+         const { data } = await axios.post(
+            "/api/hotel/register", 
+            { name, contact, address, city },
+            {headers: { Authorization: `Bearer ${await getToken()}` }}
+         );
+         
+         console.log("4️⃣ Response from backend:", data);
+
          if (data.success) {
             toast.success(data.message);
             setIsOwner(true);
@@ -31,7 +42,7 @@ const HotelReg = () => {
     <div  className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70">
 
 
-      <form onSubmit={onSubmitHandler} onClick={(e)=> e.stopPropagation} className='flex bg-white rounded-xl max-w-2xl max-md:mx-2'>
+      <form onSubmit={onSubmitHandler} onClick={(e)=> e.stopPropagation()} className='flex bg-white rounded-xl max-w-2xl max-md:mx-2'>
          <img src={assets.regImage} alt="reg-image" className='w-1/2 rounded-xl hidden md:block'/>
 
          <div className='relative flex flex-col items-center md:w-1/2 p-8 md:p-10'>
@@ -62,7 +73,8 @@ const HotelReg = () => {
                   ))}
                </select>
             </div>
-            <button className='bg-indigo-500 hover:bg-indigo-600 transition-all text-white mr-auto px-4 py-1 rounded cursor-pointer mt-4'>Register</button>
+            <button type="submit"
+            className='bg-indigo-500 hover:bg-indigo-600 transition-all text-white mr-auto px-4 py-1 rounded cursor-pointer mt-4'>Register</button>
          </div>
       </form>
     </div>
